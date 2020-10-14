@@ -85,10 +85,12 @@ namespace Unleash.Scheduling
                 var timer = new Timer(
                     callback: Callback,
                     state: callbackState,
-                    dueTime: dueTime,
+                    dueTime: Timeout.InfiniteTimeSpan,
                     period: Timeout.InfiniteTimeSpan);
 
                 timers.Add(name, timer);
+
+                timer.SafeTimerChange(dueTime, Timeout.InfiniteTimeSpan, ref disposeEnded);
             }
         }
 
